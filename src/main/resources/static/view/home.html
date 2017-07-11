@@ -1,0 +1,132 @@
+<head>
+<meta charset="utf-8">
+</head>
+<div>
+<h1>home </h1>
+
+
+
+<div ng-show="up==null">
+
+                <div class="form-inline" >
+					<div class="form-group">
+					    <label for="codeSociete">Code Société</label>
+					    <input type="text" class="form-control" id="codeSociete"   ng-model="codeSociete" placeholder="Societe">
+					 </div>
+					  <button type="submit" class="btn btn-default" ng-click="chargerSociete()">Rechercher</button>
+				</div>
+				
+				<div class="espace"></div>
+
+				<div  ng-if="societe!=null" >
+				
+				
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">Informations sur la société {{societe.codeSociete}} </h3>
+				  </div>
+				  <div class="panel-body">
+				     Code Société :  <strong>  {{societe.codeSociete}}</strong> <br>
+				     Nom  Société :  <strong>  {{societe.nomSociete}}</strong> <br>
+				     
+				    Total des actions :  <strong>  {{total}}</strong> <br>
+				     Moyenne des actions :  <strong>  {{moyenne}}</strong> <br>
+				  </div>
+				</div>
+				<div class="espace"></div>
+				<div>
+				    <table class="table table-striped">
+				    <thead>
+				         <tr>
+				         <th> idOrdre</th> <th> dateOrd</th> <th> nbAction </th> <th> prixAction </th><th>Actions</th>
+				        </tr> 
+				        <tr ng-repeat="ord in listeOrdres.content">
+				           <td>{{ord.idOrdre}}</td>
+				           <td>{{ord.dateOrd | date:'yyyy-MM-dd HH:mm:ss  '}}</td>
+				           <td>{{ord.nbAction }}</td>
+				           <td>{{ord.prixAction}}</td>
+				           <td>
+				           <a class="btn btn-success" href="#" ng-click="updateOrd(ord)" role="button">update</a>
+				            
+				           <a class="btn btn-danger" href="#" ng-click="deleteOrd(ord.idOrdre)" role="button">supprimer</a>
+				           </td>
+				        </tr>
+				    </thead>
+				     </table>
+				</div>
+				
+				<div ng-show="listeOrdres.totalPages>1"  >
+				    <ul class="container nav nav-pills">
+				    <li ng-repeat="p in pages track by $index" ng-class="{active:$pagecourante==$index}">
+				        <a ng-click="goTo($index)">{{$index+1}}</a>   
+				    </li>
+				    </ul>
+				    
+				</div>
+				
+				
+				
+				
+				
+				</div>
+				
+				<div class="espace"></div>
+</div>
+
+
+				
+
+
+
+
+<div id="update" ng-show="up!=null">
+
+				<div class="panel panel-default">
+		
+		<div class="panel-heading">
+		<h2>Modificationde l'ordre {{up.idOrdre}} </h2>
+		</div>
+		
+		<div class="panel-body">
+		   <form>
+		  
+		  <div class="form-group">
+		    <label for="societes"> Société </label>
+		     <select class="form-control"  ng-model="up.societe" ng-options="soc.codeSociete for soc in societes">
+		      <option disabled="true" value="">-- choisir une société --</option>
+		    </select>
+		    
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="nbAction">Nombre d'actions</label>
+		    <input type="number"  class="form-control" ng-model="up.nbAction" id="nbAction" placeholder="Nombre Action">
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="prixAction">prix d'Action</label>
+		    <input type="number" class="form-control" ng-model="up.prixAction" id="prixAction" placeholder="prix d'Action">
+		  </div>
+		  
+		  <div class="form-group">
+			<label class="radio-inline">
+			  <input type="radio" ng-model="up.type" name="type" id="Vente" value="Vente"> Vente
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" ng-model="up.type" name="type" id="Achat" value="Achat"> Achat
+			</label>
+		  </div>
+		  <button type="submit" ng-click="upOrdre()"  class="btn btn-default" >Sauvegarder</button>
+		</form>
+		    
+		
+		</div>
+		
+		
+		</div>
+		   
+</div>
+	
+</div>
+
+
